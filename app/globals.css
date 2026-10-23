@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+/* ---------- Tokens (light): clean white fintech UI ---------- */
+:root {
+  --outer: 237 238 242;     /* desktop backdrop behind the app column */
+  --canvas: 255 255 255;    /* screen */
+  --soft: 245 246 248;      /* chips, keys, grouped rows, icon wells */
+  --elevated: 255 255 255;  /* cards, sheets, menus */
+  --line: 236 238 242;      /* hairline borders and dividers */
+  --fill: 120 120 128;
+  --label: 17 17 20;
+  --label-2: 107 114 128;
+  --label-3: 156 163 175;
+  --sep: 60 60 67;
+  --accent: 61 61 245;      /* indigo primary */
+  --green: 18 183 106;
+  --red: 240 68 56;
+  --orange: 247 144 9;
+  --ink: 22 22 26;          /* black pill */
+  --on-ink: 255 255 255;
+  color-scheme: light dark;
+}
+
+/* ---------- Dark: follows the system unless the user picked Light / Dark ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --outer: 0 0 0;
+    --canvas: 11 11 13;
+    --soft: 28 28 32;
+    --elevated: 21 21 24;
+    --line: 38 38 43;
+    --fill: 120 120 128;
+    --label: 245 245 247;
+    --label-2: 156 156 165;
+    --label-3: 104 104 112;
+    --sep: 84 84 88;
+    --accent: 112 112 255;
+    --green: 50 213 131;
+    --red: 249 112 102;
+    --orange: 253 176 34;
+    --ink: 245 245 247;
+    --on-ink: 17 17 20;
+  }
+}
+:root[data-theme="dark"] {
+    --outer: 0 0 0;
+    --canvas: 11 11 13;
+    --soft: 28 28 32;
+    --elevated: 21 21 24;
+    --line: 38 38 43;
+    --fill: 120 120 128;
+    --label: 245 245 247;
+    --label-2: 156 156 165;
+    --label-3: 104 104 112;
+    --sep: 84 84 88;
+    --accent: 112 112 255;
+    --green: 50 213 131;
+    --red: 249 112 102;
+    --orange: 253 176 34;
+    --ink: 245 245 247;
+    --on-ink: 17 17 20;
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+html, body {
+  font-family: var(--font-sf), -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'calt', 'kern', 'liga';
+  text-rendering: optimizeLegibility;
+  min-height: 100svh;
+  background: rgb(var(--outer));
+  color: rgb(var(--label));
+  -webkit-tap-highlight-color: transparent;
+}
+::selection { background: rgb(var(--accent) / 0.2); }
+
+@utility pressable {
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), opacity 160ms ease, background-color 150ms ease;
+  &:active { transform: scale(0.97); }
+}
+@utility btn {
+  @apply pressable inline-flex items-center justify-center gap-1.5 rounded-full px-4 h-9 text-[13px] font-semibold select-none disabled:opacity-40 disabled:pointer-events-none;
+}
+@utility btn-primary { @apply btn bg-accent text-white; }
+@utility btn-secondary { @apply btn bg-soft text-label; }
+@utility btn-plain { @apply btn px-1 text-accent; }
+@utility btn-danger { @apply btn bg-bad/10 text-bad; }
+/* full-width call to action ("Add Transaction") */
+@utility btn-big {
+  @apply pressable flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-accent text-[15px] font-semibold text-white disabled:opacity-40 disabled:pointer-events-none;
+  box-shadow: 0 10px 24px -12px rgb(var(--accent) / 0.7);
+}
+/* white card with a hairline border */
+@utility panel {
+  @apply rounded-[18px] border border-line bg-elevated;
+}
+/* light grey grouped surface */
+@utility soft-card { @apply rounded-[16px] bg-soft; }
+@utility icon-btn {
+  @apply pressable grid size-10 shrink-0 place-items-center rounded-full border border-line bg-elevated text-label;
+}
+@utility chip {
+  @apply pressable inline-flex h-8 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-4 text-[13px] font-medium;
+}
+@utility chip-on { @apply chip bg-ink text-onink; }
+@utility chip-off { @apply chip bg-soft text-label2; }
+@utility section-title { @apply pb-2.5 text-[14px] font-semibold text-label; }
+@utility tabular { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum', 'calt', 'kern'; }
+@utility input {
+  @apply w-full rounded-[12px] bg-soft px-3.5 py-2.5 text-[14px] text-label placeholder:text-label3 outline-hidden;
+  transition: box-shadow 150ms ease;
+  &:focus { box-shadow: 0 0 0 3px rgb(var(--accent) / 0.25); }
+}
+/* menus / popovers: opaque, readable in both themes */
+@utility glass {
+  background: rgb(var(--elevated));
+}
+@utility glass-hairline { box-shadow: 0 0 0 1px rgb(var(--line)), 0 16px 40px -12px rgb(0 0 0 / 0.22); }
+@utility hairline { box-shadow: inset 0 -1px 0 rgb(var(--line)); }
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}

@@ -1,0 +1,14 @@
+# Cloudflare Worker that sits between the app and NVIDIA.
+# The NVIDIA key is NOT in this file. It is stored as an encrypted secret:
+#   npx wrangler secret put NVIDIA_API_KEY
+name = "wallet-tracker"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[vars]
+# Comma-separated list of sites allowed to call this worker (no trailing slash).
+ALLOWED_ORIGINS = "http://localhost:3000,https://kesavasundaranathan.github.io"
+# Any chat model from build.nvidia.com that you have access to.
+NVIDIA_MODEL = "meta/llama-3.2-90b-vision-instruct"
+# Requests per minute per visitor (best effort, per Cloudflare location).
+RATE_LIMIT_PER_MIN = "20"

@@ -1,0 +1,2 @@
+# Copy to .dev.vars for `npm run dev` (local testing only). .dev.vars is git-ignored.
+NVIDIA_API_KEY=nvapi-paste-your-key-here

@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+*.tsbuildinfo
+
+# secrets and local config: never commit these
+.env
+.env.local
+.env.*.local
+worker/.dev.vars
+worker/.wrangler
+worker/node_modules
